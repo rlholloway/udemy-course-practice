@@ -49,20 +49,36 @@ const ExpForm = () => {
         setEnteredDate(event.target.value);
     };
 
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+        const expenseData = {
+            title: enteredTitle,
+            amount: enteredAmount,
+            date: new Date(enteredDate)
+        };
+
+        console.log(expenseData);
+        setEnteredTitle("");
+        setEnteredAmount("");
+        setEnteredDate("");
+    };
+
     return (
-        <form>
+        <form onSubmit={submitHandler}>
             <div>
                 <div>
                     <label>Title</label>
-                    <input type="text" onChange={titleChangeHandler} />
+                    {/* ADDING value={enteredTitle} GIVES US TWO-WAY BINDING SO THAT WE CAN CLEAR THE INPUT (by feeding enteredTitle back into it) AFTER SUBMITTING AND HOLDING THE DATA*/}
+                    <input type="text" value={enteredTitle} onChange={titleChangeHandler} />
                 </div>
                 <div>
                     <label>Amount</label>
-                    <input type="number" min="0.01" step="0.01" onChange={amountHandler} />
+                    <input type="number" min="0.01" step="0.01" value={enteredAmount} onChange={amountHandler} />
                 </div>
                 <div>
                     <label>Date</label>
-                    <input type="date" min="2019-01-01" onChange={dateHandler} />
+                    <input type="date" min="2019-01-01" value={enteredDate} onChange={dateHandler} />
                 </div>
             </div>
             <div>
